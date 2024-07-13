@@ -1,0 +1,26 @@
+.container {
+    display: block;
+}
+
+.question-container {
+    border: 1px solid black;
+    margin-bottom: 40px;
+    padding: 10px;
+}
+
+.coding-container {
+    width: 700px;
+    height: 500px;
+    margin: 0 auto;
+    margin-bottom: 100px;
+    border: 1px solid black;
+}
+
+.CodeMirror {
+    height: 100%;
+}
+
+.submit-btn {
+    border-radius: 1px solid black;
+    margin-top: 20px;
+}
