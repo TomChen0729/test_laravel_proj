@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>syntaxPract</title>
+    <title>寶箱解鎖</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/clike/clike.min.js"></script>
@@ -41,8 +41,8 @@
 <body>
     <div class="container">
         <div class="question-container">
-            <h1 class="quesiton">主題：for迴圈</h1>
-            <h2 class="quesiton">題目：將寶箱的鑰匙孔解鎖，以繼續冒險</h2>
+            <h1 class="question">主題：for迴圈</h1>
+            <h2 class="question">題目：將寶箱的鑰匙孔解鎖，以繼續冒險</h2>
             <h3 class="hint">需求：利用萬用字元"*"印出層數為5的正三角形，每一行的星星數量必須比前一行多2個</h3>
         </div>
         <div class="coding-container">
@@ -79,19 +79,37 @@ public class hello {
             theme: "default"
         });
 
-
+        function removeComments(code) {
+            return code.replace(/\/\/.*/g, '').trim();
+        }
 
         var submitBtn = document.getElementById('send-code');
 
         submitBtn.addEventListener('click', () => {
-            var userCode = editor.getValue().split('// 程式撰寫區域');
-            console.log(userCode);
-            sendCode = userCode[1].replace('\n    }\n}', '').trim();
-            if (sendCode != '') {
-                alert('您輸入的code為：\n' + sendCode);
+            var userCode = editor.getValue();
+            var codeBlock = `
+        // 控制層數
+        for(){
+            // 控制縮排(使星星在正確位置)
+            for(){
+
+            }
+            // 印出相應數量的星星
+            for(){
+                
+            }
+        }`;
+
+            var startIdx = userCode.indexOf(codeBlock);
+            if (startIdx !== -1) {
+                var endIdx = startIdx + codeBlock.length;
+                var extractedCode = userCode.substring(startIdx, endIdx);
+                var cleanedCode = removeComments(extractedCode);
+
+                alert('您輸入的code為：\n' + cleanedCode);
                 // 將程式碼送入演算法，或是後端的判斷，如果success，顯現相應的效果，並執行通關
             } else {
-                alert('打打字阿傻逼');
+                alert('未找到目標程式碼區塊，請確認您的輸入。');
             }
         });
     </script>

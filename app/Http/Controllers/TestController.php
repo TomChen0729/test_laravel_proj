@@ -19,4 +19,7 @@ class TestController extends Controller
     public function syntaxPract(){
         return view('syntaxPract');
     }
+    public function unLock(){
+        return view('unLock');
+    }
 }

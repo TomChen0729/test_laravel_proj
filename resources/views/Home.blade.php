@@ -20,6 +20,7 @@
         <button><a href="{{ route('syntaxPract') }}">語法練習</a></button>
         <button><a href="{{ route('debug') }}">進階debug</a></button>
         <button><a href="{{ route('projTest') }}">專案練習</a></button>
+        <button><a href="{{ route('unLock') }}">寶箱解鎖</a></button>
     </div>
 
 </body>
