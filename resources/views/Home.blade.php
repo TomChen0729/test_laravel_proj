@@ -16,6 +16,10 @@
         <button><a href="{{ route('debug') }}">進階debug</a></button>
         <button><a href="{{ route('projTest') }}">專案練習</a></button>
     </div>
+    <div class="user-tom" style="border: 2px solid black; padding: 20px">
+        <h2>Yan</h2>
+        <button><a href="{{ route('boxgame') }}">寶箱</a></button>
+    </div>
 
 </body>
 
