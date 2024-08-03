@@ -4,13 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <title>HomePage</title>
-    <style>
-        .user-tom button{
-            height: 60px;
-            font-size: medium;
-        }
-    </style>
 </head>
 
 <body>
@@ -21,6 +16,10 @@
         <button><a href="{{ route('debug') }}">進階debug</a></button>
         <button><a href="{{ route('projTest') }}">專案練習</a></button>
         <button><a href="{{ route('unLock') }}">寶箱解鎖</a></button>
+    </div>
+    <div class="user-tom" style="border: 2px solid black; padding: 20px">
+        <h2>Yan</h2>
+        <button><a href="{{ route('boxgame') }}">寶箱</a></button>
     </div>
 
 </body>
