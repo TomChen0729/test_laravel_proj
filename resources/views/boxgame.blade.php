@@ -176,6 +176,14 @@
             background: url('/images/boxes/closebox.svg') no-repeat center;
             transition: background 0.5s;
         }
+        .img{
+            width: 60px;
+            height: 60px;
+            position: relative;
+            top: 50%;  
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
         #treasure-box.open {
             background: url('/images/boxes/openbox.svg') no-repeat center;
             background-size: contain;
@@ -252,7 +260,9 @@
                 <div class="question">
                     <p>要打開寶箱，必須產製一個特殊鑰匙<br>鑰匙的形狀可以設為變數，用亂數產生1</p>
                 </div>
-                <div id="treasure-box"></div>
+                <div id="treasure-box">
+                    <img class="img" id="randomImg" src="/images/boxes/triangle.png" alt="">
+                </div>
                 <button onclick="openBox()">打開寶箱</button>
             </div>
             <div class="col-md-6 right-container">
@@ -276,6 +286,28 @@ public class StarPatterns {
     </div>
     <!-- JavaScript -->
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = [
+                '/images/boxes/triangle.png',
+                '/images/boxes/left-triangle.png',
+                '/images/boxes/right-triangle.png',
+                '/images/boxes/shape.png'
+            ];
+
+            function getRandomImg() {
+                const randomIndex = Math.floor(Math.random() * images.length);
+                return images[randomIndex];
+            }
+
+            function changeImg() {
+                const imgElement = document.getElementById('randomImg');
+                imgElement.src = getRandomImg();
+            }
+
+            // 變換三角形
+            changeImg();
+        });
+
         function openBox() {
             const box = document.getElementById("treasure-box");
             box.classList.add("open");
