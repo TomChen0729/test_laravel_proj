@@ -241,7 +241,7 @@
                 </li>
             </ul>
 
-            <ul class="col-ms-6 navbar justify-content-end">
+            <ul class="col-ms-6 navbar">
                 <li><a href="#" onclick="togglePopup2()"> 知識卡</a></li>
                 <li><a href="#" onclick="history.back()"> 回上一頁</a></li>
                 <li class="time" id="timer">00:00:00</li>
@@ -311,6 +311,9 @@ public class StarPatterns {
         function openBox() {
             const box = document.getElementById("treasure-box");
             box.classList.add("open");
+
+            const imgElement = document.getElementById("randomImg");
+            imgElement.style.display = 'none'; 
         }
 
         var editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
