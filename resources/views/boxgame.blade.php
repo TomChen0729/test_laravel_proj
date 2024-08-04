@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>boxgame</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/base16-dark.min.css" rel="stylesheet">
@@ -19,10 +21,12 @@
             padding: 20px;
             text-align: center;
         }
+
         .question p {
             font-size: 20px;
-            font-weight:bold;
+            font-weight: bold;
         }
+
         .textarea-container {
             width: 100%;
             height: 100%;
@@ -30,35 +34,40 @@
             display: flex;
             align-items: center;
         }
+
         textarea {
             width: 100%;
             height: 100%;
             font-size: 16px;
         }
-        .CodeMirror{
+
+        .CodeMirror {
             width: 100%;
-            height:600px;
+            height: 600px;
             border: 2px solid #ccc;
             border-radius: 10px;
-            margin-top:-40px;
+            margin-top: -40px;
         }
+
         .CodeMirror-scroll {
             overflow: auto;
         }
-        .btn-container{
-            display:flex;
-            justify-content:center;
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
             align-items: center;
         }
-        .btn-container button{
-            font-size:18px;
-            margin:20px;
-            margin-top:0px;
-            border-radius:5px;
-        }
 
+        .btn-container button {
+            font-size: 18px;
+            margin: 20px;
+            margin-top: 0px;
+            border-radius: 5px;
+        }
     </style>
 </head>
+
 <body>
     <div class="container-fluid">
         <div class="row">
@@ -73,11 +82,21 @@
 public class StarPatterns {
     public static void main(String[] args) {
         int n = 3;
-        
-        // 判斷式撰寫區域
+        // 程式撰寫區域
+
+        // 控制層數
+        for(){
+            // 控制縮排(使星星在正確位置)
+            for(){
+                
+            }
+            // 印出相應數量的星星
+            for(){
+                
+            }
+        }
     }
-}
-                    </textarea>
+}</textarea>
                 </div>
                 <div class="btn-container">
                     <button id="send-code" class="btn-submit">提交</button>
@@ -88,27 +107,68 @@ public class StarPatterns {
     </div>
     <!-- JavaScript -->
     <script>
+        // 弄一個codeMirror出來，設定佈景、語言模式
         var editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
             lineNumbers: true,
             mode: "text/x-java",
             theme: "base16-dark"
         });
 
-
+        // 移除註解及移除後的空白段落
+        function removeCommentsAndEmptyLines(code) {
+            // 利用正規表達式移除註解
+            let noComments = code.replace(/\/\/.*/g, '').trim();
+            // 移除空行
+            let noEmptyLines = noComments.split('\n').filter(line => line.trim() !== '').join('\n');
+            return noEmptyLines;
+        }
 
         var submitBtn = document.getElementById('send-code');
-
+        var templateCode = `for(){
+            for(){
+            }
+            for(){
+            }
+        }`;
         submitBtn.addEventListener('click', () => {
-            var userCode = editor.getValue().split('// 判斷式撰寫區域');
-            console.log(userCode);
-            sendCode = userCode[1].replace('\n    }\n}', '').trim();
-            if (sendCode != '') {
-                alert('您輸入的code為：\n' + sendCode);
-                // 將程式碼送入演算法，或是後端的判斷，如果success，顯現相應的效果，並執行通關
+            // 獲取編輯器內文字，在"// 程式撰寫區域"之後的值並將其分開，取目標code，並去空白
+            var userCode = editor.getValue().split('// 程式撰寫區域')[1].trim();
+            if (userCode) {
+                // 執行剛剛移除註解的函式之後再將最外面的兩個大括號去除，就是我要判讀的code
+                var cleanedCode = removeCommentsAndEmptyLines(userCode).replace('\n    }\n}', '').trim();
+                if (cleanedCode && cleanedCode !== templateCode.trim()) {
+                    // 測試用
+                    // alert(templateCode.trim());
+                    alert('您輸入的code為：\n' + cleanedCode);
+                    // 將程式碼送入演算法，或是後端的判斷，如果success，顯現相應的效果，並執行通關
+                    // 跑fetch進後端
+                    fetch('/api/receive-usercode',{
+                        method: 'Post',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify({ 
+                            userCode: cleanedCode 
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        if(data.message === 'OK'){
+                            alert('答對');
+                        }
+                    })
+
+
+                } else {
+                    alert('請輸入程式碼');
+                }
             } else {
-                alert('打打字阿傻逼');
+                alert('請輸入程式碼');
             }
         });
     </script>
 </body>
+
 </html>
