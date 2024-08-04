@@ -160,6 +160,9 @@
             z-index: 10001;
             display: none;
         }
+        .container-fluid{
+            margin-top: 2%;
+        }
         .question {
             width: 100%;
             height: 100px;
@@ -195,7 +198,6 @@
         .textarea-container {
             width: 100%;
             height: 100%;
-            margin-top: -15px;
             display: flex;
             align-items: center;
         }
@@ -208,10 +210,10 @@
 
         .CodeMirror {
             width: 100%;
-            height:  550px;
+            height:  500px;
             border: 2px solid #ccc;
             border-radius: 10px;
-            margin-top: -40px;
+            margin-top: -30px;
         }
 
         .CodeMirror-scroll {
@@ -226,8 +228,7 @@
 
         .btn-container button {
             font-size: 18px;
-            margin: 20px;
-            margin-top: 0px;
+            margin: 0 20px;
             border-radius: 5px;
         }
     </style>
@@ -266,7 +267,7 @@
         <div class="row">
             <div class="col-md-6 left-container">
                 <div class="question">
-                    <p>要打開寶箱，必須產製一個特殊鑰匙<br>鑰匙的形狀可以設為變數，用亂數產生1</p>
+                    <p>要打開寶箱，必須讓 * 填滿三角形鎖頭<br>請在右方程式碼區，使用巢狀for迴圈來解鎖寶箱</p>
                 </div>
                 <div id="treasure-box">
                     <img class="img" id="randomImg" src="/images/boxes/triangle.png" alt="">
