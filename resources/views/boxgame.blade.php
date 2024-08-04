@@ -295,6 +295,7 @@ public class StarPatterns {
             ];
 
             function getRandomImg() {
+                // 返回0~4之間，不包含4的隨機數，Math.floor()向下取整數，image.length = 4
                 const randomIndex = Math.floor(Math.random() * images.length);
                 return images[randomIndex];
             }
