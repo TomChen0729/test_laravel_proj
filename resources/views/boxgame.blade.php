@@ -231,13 +231,10 @@
                     <a href="#" class="breadcrumbs__link">綠野仙蹤</a>
                 </li>
                 <li class="breadcrumbs__item">
-                    <a href="#" class="breadcrumbs__link">遊玩等級</a>
-                </li>
-                <li class="breadcrumbs__item">
                     <a href="#" class="breadcrumbs__link">遊戲種類</a>
                 </li>
                 <li class="breadcrumbs__item">
-                    <a href="#" class="breadcrumbs__link__active">選擇題</a>
+                    <a href="#" class="breadcrumbs__link__active">解鎖寶箱</a>
                 </li>
             </ul>
 
