@@ -353,6 +353,7 @@ public class StarPatterns {
         }
 
         var submitBtn = document.getElementById('send-code');
+        // 框架code
         var templateCode = `for(){
             for(){
             }
@@ -372,7 +373,7 @@ public class StarPatterns {
                     // 將程式碼送入演算法，或是後端的判斷，如果success，顯現相應的效果，並執行通關
                     // 跑fetch進後端
                     fetch('/api/receive-usercode',{
-                        method: 'Post',
+                        method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
