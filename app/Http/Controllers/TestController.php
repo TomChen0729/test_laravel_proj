@@ -51,7 +51,7 @@ class TestController extends Controller
                 File::makeDirectory($directoryPath, 0755, true);
             }
 
-            // 將使用者程式碼寫入 Java 文件
+            // 將使用者程式碼寫入 Java 檔案
             $filePath = $directoryPath . '/Main.java';
             $javaCode = <<<EOD
 public class Main {
@@ -101,8 +101,7 @@ EOD;
 
     private function evaluateOutput($output)
     {
-        // 這裡添加你自己的評估邏輯
-        // 示例：檢查輸出是否是期望的結果
+        // 將比對答案邏輯
         $expectedOutput = "your expected output here";
         return trim($output) === $expectedOutput;
     }
