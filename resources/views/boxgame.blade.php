@@ -182,13 +182,19 @@
             background: url('/images/boxes/closebox.svg') no-repeat center;
             transition: background 0.5s;
         }
-        .img{
-            width: 60px;
-            height: 60px;
+        .star{
+            white-space: pre; /* 保留空格和換行 */
+            font-family: monospace; /* 使用等寬字體 */
+            width: 150px;
+            height: 200px;
             position: relative;
-            top: 50%;  
-            left: 50%;
+            top: 68%;  
+            left: 52%;
             transform: translate(-50%, -50%);
+        }
+        .star.open{
+            text-shadow: 0 0 0.2em white, 0 0 0.2em white, 0 0 0.2em white;
+            transform: translate(-53%, -10%);
         }
         #treasure-box.open {
             background: url('/images/boxes/openbox.svg') no-repeat center;
@@ -270,7 +276,8 @@
                     <p>要打開寶箱，必須讓 * 填滿三角形鎖頭<br>請在右方程式碼區，使用巢狀for迴圈來解鎖寶箱</p>
                 </div>
                 <div id="treasure-box">
-                    <img class="img" id="randomImg" src="/images/boxes/triangle.png" alt="">
+                    <!-- <img class="img" id="randomImg" src="/images/boxes/triangle.png" alt=""> -->
+                    <div id="star" class="star"></div>
                 </div>
                 <button onclick="openBox()">打開寶箱</button>
             </div>
@@ -305,35 +312,62 @@ public class StarPatterns {
     </div>
     <!-- JavaScript -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const images = [
-                '/images/boxes/triangle.png',
-                '/images/boxes/left-triangle.png',
-                '/images/boxes/right-triangle.png',
-                '/images/boxes/shape.png'
-            ];
+        // DOMContentLoaded事件在文件的HTML被完全載入和解析後觸發，而不必等待樣式表、圖像和子框架的完成加載
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     const images = [
+        //         '/images/boxes/triangle.png',
+        //         '/images/boxes/left-triangle.png',
+        //         '/images/boxes/right-triangle.png',
+        //         '/images/boxes/shape.png'
+        //     ];
 
-            function getRandomImg() {
-                // 返回0~4之間，不包含4的隨機數，Math.floor()向下取整數，image.length = 4
-                const randomIndex = Math.floor(Math.random() * images.length);
-                return images[randomIndex];
+        //     function getRandomImg() {
+        //         返回0~4之間，不包含4的隨機數，Math.floor()向下取整數，image.length = 4
+        //         const randomIndex = Math.floor(Math.random() * images.length);
+        //         return images[randomIndex];
+        //     }
+
+        //     function changeImg() {
+        //         const imgElement = document.getElementById('randomImg');
+        //         imgElement.src = getRandomImg();
+        //     }
+
+        //     變換三角形
+        //     changeImg();
+        // });
+
+        function triangle() {
+            let n = 7;
+            let result = ""; // 初始化 result
+
+            for(let i = 1; i <= n; i++){
+                let star = "";
+
+                for(let j = 1; j <= n - i; j++){
+                    star += " ";
+                }
+
+                for(let j = 1; j <= 2 * i - 1; j++){
+                    star += "*";
+                }
+
+                result += star + "\n"; // 將一行星號加到 result
             }
+            // 使用result一次更新DOM直接展示，而不是分段更新展示
+            document.getElementById('star').innerText = result;
+        }
 
-            function changeImg() {
-                const imgElement = document.getElementById('randomImg');
-                imgElement.src = getRandomImg();
-            }
-
-            // 變換三角形
-            changeImg();
-        });
+        document.addEventListener('DOMContentLoaded', triangle);
 
         function openBox() {
             const box = document.getElementById("treasure-box");
             box.classList.add("open");
 
-            const imgElement = document.getElementById("randomImg");
-            imgElement.style.display = 'none'; 
+            const stars = document.getElementById("star");
+            stars.classList.add("open");
+
+            // const imgElement = document.getElementById("randomImg");
+            // imgElement.style.display = 'none'; 
         }
 
         // 弄一個codeMirror出來，設定佈景、語言模式
