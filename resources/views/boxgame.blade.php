@@ -177,27 +177,30 @@
             font-weight: bold;
         }
         #treasure-box {
+            margin: 0;
+            padding: 0;
             width: 100%;
             height: 400px;
-            background: url('/images/boxes/closebox.svg') no-repeat center;
+            background: url('/images/boxes/closebox1.svg') no-repeat center;
             transition: background 0.5s;
         }
         .star{
             white-space: pre; /* 保留空格和換行 */
             font-family: monospace; /* 使用等寬字體 */
+            font-size: 14px;
             width: 150px;
             height: 200px;
             position: relative;
             top: 68%;  
             left: 52%;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, -85%);
         }
         .star.open{
             text-shadow: 0 0 0.2em white, 0 0 0.2em white, 0 0 0.2em white;
-            transform: translate(-53%, -10%);
+            transform: translate(-50%, -30%);
         }
         #treasure-box.open {
-            background: url('/images/boxes/openbox.svg') no-repeat center;
+            background: url('/images/boxes/openbox1.svg') no-repeat center;
             background-size: contain;
         }
 
