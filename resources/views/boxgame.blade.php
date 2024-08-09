@@ -211,22 +211,16 @@
             align-items: center;
         }
 
-        textarea {
-            width: 100%;
-            height: 100%;
-            font-size: 16px;
+        .code-container {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 8px;
         }
 
-        .CodeMirror {
-            width: 100%;
-            height:  500px;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            margin-top: -30px;
-        }
-
-        .CodeMirror-scroll {
-            overflow: auto;
+        input {
+            width: 80px;
+            text-align: center;
+            transition: width 0.2s ease;
         }
 
         .btn-container {
@@ -239,6 +233,7 @@
             font-size: 18px;
             margin: 0 20px;
             border-radius: 5px;
+            margin-top:20px;
         }
     </style>
 </head>
@@ -285,31 +280,25 @@
                 <button onclick="openBox()">打開寶箱</button>
             </div>
             <div class="col-md-6 right-container">
-                <div class="textarea-container">
-                    <textarea id="code-editor">
+                <div class="code-container">
+<pre>
 public class StarPatterns {
     public static void main(String[] args) {
-        int n = 3;
-        // 程式撰寫區域
+        int n = 3; // 階層
 
-        // 控制層數
-        for(){
-            // 控制縮排(使星星在正確位置)
-            for(){
-                
+        for (<input type="text" id="iInit" placeholder="____" oninput="autoResize(this)">;<input type="text" id="iScope" placeholder="____" oninput="autoResize(this)">;<input type="text" id="iUpdate" placeholder="____" oninput="autoResize(this)">) {
+            for (<input type="text" id="jInit" placeholder="____" oninput="autoResize(this)">;<input type="text" id="jScope" placeholder="____" oninput="autoResize(this)">;<input type="text" id="jUpdate" placeholder="____" oninput="autoResize(this)">) {
+                System.out.print("*");
             }
-            // 印出相應數量的星星
-            for(){
-                
-            }
+            System.out.println();
         }
     }
-}</textarea>
+}
+</pre>
                 </div>
                 <div class="btn-container">
                     <button id="send-code" class="btn-submit">提交</button>
                     <button><a href="{{ route('home') }}">回第一頁</a></button>
-                </div>
             </div>
         </div>
     </div>
@@ -373,12 +362,12 @@ public class StarPatterns {
             // imgElement.style.display = 'none'; 
         }
 
-        // 弄一個codeMirror出來，設定佈景、語言模式
+        /* 弄一個codeMirror出來，設定佈景、語言模式
         var editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
             lineNumbers: true,
             mode: "text/x-java",
             theme: "base16-dark"
-        });
+        });*/
 
         // 移除註解及移除後的空白段落
         function removeCommentsAndEmptyLines(code) {
@@ -435,6 +424,10 @@ public class StarPatterns {
                 alert('請輸入程式碼');
             }
         });
+
+        function autoResize(input) {
+            input.style.width = input.scrollWidth + 'px'; // 方框隨著輸入的文字增加變大
+        }
     </script>
 </body>
 
