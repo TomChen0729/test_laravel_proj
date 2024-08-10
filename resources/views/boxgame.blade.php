@@ -197,7 +197,7 @@
         }
         .star.open{
             text-shadow: 0 0 0.2em white, 0 0 0.2em white, 0 0 0.2em white;
-            transform: translate(-55%, -10%);
+            transform: translate(-55%, -40%);
         }
         #treasure-box.open {
             background: url('/images/boxes/openbox1.svg') no-repeat center;
@@ -328,7 +328,7 @@ public class StarPatterns {
         //     changeImg();
         // });
 
-        function triangle() {
+        function triangle1() {
             let n = 7;
             let result = ""; // 初始化 result
 
@@ -349,7 +349,72 @@ public class StarPatterns {
             document.getElementById('star').innerText = result;
         }
 
-        document.addEventListener('DOMContentLoaded', triangle);
+        function triangle2() {
+            let n = 7;
+            let result = ""; // 初始化 result
+
+            for(let i = 1;i <= n;i++){
+                let star = "";
+
+                for(let j = 1;j <= 2 * i - 1; j++){
+                    star += "*";
+                }
+
+                result += star + "\n"; // 將一行星號加到 result
+            }
+            // 使用result一次更新DOM直接展示，而不是分段更新展示
+            document.getElementById('star').innerText = result;
+        }
+
+        function triangle3() {
+            let n = 7;
+            let result = ""; // 初始化 result
+
+            for(let i = n; i >= 1; i--){
+                let star = "";
+
+                for(let j = 1; j <= n - i; j++){
+                    star += " ";
+                }
+                
+                for(let j = 1; j <= 2 * i - 1; j++){
+                    star += "*";
+                }
+
+                result += star + "\n"; // 將一行星號加到 result
+            }
+            // 使用result一次更新DOM直接展示，而不是分段更新展示
+            document.getElementById('star').innerText = result;
+        }
+
+        function triangle4() {
+            let n = 7;
+            let result = ""; // 初始化 result
+
+            for(let i = n;i >= 1;i--){
+                let star = "";
+
+                for(let j = 1;j <= 2 * i - 1; j++){
+                    star += "*";
+                }
+
+                result += star + "\n"; // 將一行星號加到 result
+            }
+            // 使用result一次更新DOM直接展示，而不是分段更新展示
+            document.getElementById('star').innerText = result;
+        }
+
+        // 隨機調用triangle1~4
+        function randomTriangle() {
+            const triangle = [triangle1, triangle2, triangle3, triangle4];
+            const randomIndex = Math.floor(Math.random() * triangle.length);
+            triangle[randomIndex]();
+        }
+
+        // 加載頁面後執行
+        document.addEventListener('DOMContentLoaded', function () {
+            randomTriangle();
+        });
 
         function openBox() {
             const box = document.getElementById("treasure-box");
