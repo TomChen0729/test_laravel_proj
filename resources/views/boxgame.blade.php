@@ -177,27 +177,30 @@
             font-weight: bold;
         }
         #treasure-box {
+            margin: 0;
+            padding: 0;
             width: 100%;
             height: 400px;
-            background: url('/images/boxes/closebox.svg') no-repeat center;
+            background: url('/images/boxes/closebox1.svg') no-repeat center;
             transition: background 0.5s;
         }
         .star{
             white-space: pre; /* 保留空格和換行 */
             font-family: monospace; /* 使用等寬字體 */
+            font-size: 14px;
             width: 150px;
             height: 200px;
             position: relative;
             top: 68%;  
             left: 52%;
-            transform: translate(-50%, -50%);
+            transform: translate(-45%, -40%);
         }
         .star.open{
             text-shadow: 0 0 0.2em white, 0 0 0.2em white, 0 0 0.2em white;
-            transform: translate(-53%, -10%);
+            transform: translate(-55%, -40%);
         }
         #treasure-box.open {
-            background: url('/images/boxes/openbox.svg') no-repeat center;
+            background: url('/images/boxes/openbox1.svg') no-repeat center;
             background-size: contain;
         }
 
@@ -208,22 +211,16 @@
             align-items: center;
         }
 
-        textarea {
-            width: 100%;
-            height: 100%;
-            font-size: 16px;
+        .code-container {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 8px;
         }
 
-        .CodeMirror {
-            width: 100%;
-            height:  500px;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            margin-top: -30px;
-        }
-
-        .CodeMirror-scroll {
-            overflow: auto;
+        input {
+            width: 80px;
+            text-align: center;
+            transition: width 0.2s ease;
         }
 
         .btn-container {
@@ -236,6 +233,7 @@
             font-size: 18px;
             margin: 0 20px;
             border-radius: 5px;
+            margin-top:20px;
         }
     </style>
 </head>
@@ -282,8 +280,8 @@
                 <button onclick="openBox()">打開寶箱</button>
             </div>
             <div class="col-md-6 right-container">
-                <div class="textarea-container">
-                    <textarea id="code-editor">
+                <div class="code-container">
+<pre>
 public class StarPatterns {
     public static void main(String[] args) {
         int i,j;
@@ -302,12 +300,12 @@ public class StarPatterns {
             System.out.println();
         }
     }
-}</textarea>
+}
+</pre>
                 </div>
                 <div class="btn-container">
                     <button id="send-code" class="btn-submit">提交</button>
                     <button><a href="{{ route('home') }}">回第一頁</a></button>
-                </div>
             </div>
         </div>
     </div>
@@ -337,8 +335,14 @@ public class StarPatterns {
         //     changeImg();
         // });
 
-        function triangle() {
-            let n = 7;
+        function layer() {
+            const num = [3, 5, 7]; // 可選的階層數
+            const randomNum = Math.floor(Math.random() * num.length); // 隨機選擇一個索引
+            return num[randomNum]; // 返回隨機選擇的數字
+        }
+
+        function triangle1() {
+            let n = layer();
             let result = ""; // 初始化 result
 
             for(let i = 1; i <= n; i++){
@@ -358,7 +362,72 @@ public class StarPatterns {
             document.getElementById('star').innerText = result;
         }
 
-        document.addEventListener('DOMContentLoaded', triangle);
+        function triangle2() {
+            let n = layer();
+            let result = ""; // 初始化 result
+
+            for(let i = 1;i <= n;i++){
+                let star = "";
+
+                for(let j = 1;j <= 2 * i - 1; j++){
+                    star += "*";
+                }
+
+                result += star + "\n"; // 將一行星號加到 result
+            }
+            // 使用result一次更新DOM直接展示，而不是分段更新展示
+            document.getElementById('star').innerText = result;
+        }
+
+        function triangle3() {
+            let n = layer();
+            let result = ""; // 初始化 result
+
+            for(let i = n; i >= 1; i--){
+                let star = "";
+
+                for(let j = 1; j <= n - i; j++){
+                    star += " ";
+                }
+                
+                for(let j = 1; j <= 2 * i - 1; j++){
+                    star += "*";
+                }
+
+                result += star + "\n"; // 將一行星號加到 result
+            }
+            // 使用result一次更新DOM直接展示，而不是分段更新展示
+            document.getElementById('star').innerText = result;
+        }
+
+        function triangle4() {
+            let n = layer();
+            let result = ""; // 初始化 result
+
+            for(let i = n;i >= 1;i--){
+                let star = "";
+
+                for(let j = 1;j <= 2 * i - 1; j++){
+                    star += "*";
+                }
+
+                result += star + "\n"; // 將一行星號加到 result
+            }
+            // 使用result一次更新DOM直接展示，而不是分段更新展示
+            document.getElementById('star').innerText = result;
+        }
+
+        // 隨機調用triangle1~4
+        function randomTriangle() {
+            const triangle = [triangle1, triangle2, triangle3, triangle4];
+            const randomIndex = Math.floor(Math.random() * triangle.length);
+            triangle[randomIndex]();
+        }
+
+        // 加載頁面後執行
+        document.addEventListener('DOMContentLoaded', function () {
+            randomTriangle();
+        });
 
         function openBox() {
             const box = document.getElementById("treasure-box");
@@ -371,12 +440,12 @@ public class StarPatterns {
             // imgElement.style.display = 'none'; 
         }
 
-        // 弄一個codeMirror出來，設定佈景、語言模式
+        /* 弄一個codeMirror出來，設定佈景、語言模式
         var editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
             lineNumbers: true,
             mode: "text/x-java",
             theme: "base16-dark"
-        });
+        });*/
 
         // 移除註解及移除後的空白段落
         function removeCommentsAndEmptyLines(code) {
@@ -433,6 +502,10 @@ public class StarPatterns {
                 alert('請輸入程式碼');
             }
         });
+
+        function autoResize(input) {
+            input.style.width = input.scrollWidth + 'px'; // 方框隨著輸入的文字增加變大
+        }
     </script>
 </body>
 

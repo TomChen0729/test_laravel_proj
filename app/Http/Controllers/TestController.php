@@ -36,6 +36,10 @@ class TestController extends Controller
     {
         return view('unLock');
     }
+    public function idcardgame()
+    {
+        return view('idcardgame');
+    }
 
     public function receiveUserCode(Request $request)
     {
