@@ -182,11 +182,12 @@
             left: 50%; /* 調整左右位置 */
             transform: translateX(-50%);
             opacity: 0;
+            /* 從-100px => 50px，透明(0) => 不透明(1)，動畫持續0.5秒，速度曲線 => ease-in-out */
             transition: top 0.5s ease-in-out, opacity 0.5s ease-in-out;
             width: 100%;
             height: 250px;
             position: absolute;
-            z-index: 1;
+            z-index: 1; /*最上層*/
         }
 
         #seal.show{
@@ -263,10 +264,9 @@
                 </div>
                 <div id="idcard">
                     <img class="img" id="seal" src="/images/idcard/idcardseal.svg" alt="">
-                    <button onclick="openBox()">打開寶箱</button>
-                    <button id="test-button">測試蓋章動畫</button>
                     <img class="img" id="idcards" src="/images/idcard/villageridcard.svg" alt="">
                 </div>
+                <button onclick="playStamp()">測試蓋章動畫</button>
             </div>
             <div class="col-md-6 right-container">
                 <div class="code-container">
@@ -291,8 +291,12 @@ public class StarPatterns {
             </div>
         </div>
     </div>
+    
     <!-- JavaScript -->
     <script>
+        function testFunction() {
+        alert("按钮点击正常！");
+    }
         function autoResize(input) {
             input.style.width = input.scrollWidth + 'px'; // 方框隨著輸入的文字增加變大
         }
@@ -319,17 +323,6 @@ public class StarPatterns {
             // 變換身分證
             change();
 
-            // 綁定測試按鈕
-            function show() {
-                const box = document.getElementById("test-button");
-                alert('Button clicked!');
-                box.classList.add("show");
-            }
-
-            document.getElementById('test-button').addEventListener('click', function() {
-                alert('Button clicked!');
-            });
-
         });
 
         // 蓋章動畫
@@ -342,7 +335,7 @@ public class StarPatterns {
             // 完成動畫，移除顯示
             setTimeout(() => {
                 sealElement.classList.remove('show');
-            }, 2000); // 預設動畫持續2秒
+            }, 1000); // 預設動畫持續1秒
         }
 
     </script>
