@@ -176,7 +176,29 @@
             font-size: 20px;
             font-weight: bold;
         }
+
+        #seal{
+            top: -100px; /* 蓋章動畫起始位置在畫面上方 */
+            left: 50%; /* 調整左右位置 */
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: top 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            width: 100%;
+            height: 250px;
+            position: absolute;
+            z-index: 1;
+        }
+
+        #seal.show{
+            top: 50px; /* 蓋章飛入後的位置 */
+            opacity: 1;
+        }
         
+        #idcards{
+            padding: 20px;
+            position: relative;
+        }
+
         .code-container {
             background-color: #f4f4f4;
             padding: 15px;
@@ -237,10 +259,13 @@
         <div class="row">
             <div class="col-md-6 left-container">
                 <div class="question">
-                    <p>用 if 判斷是否允許進入村莊，並且印出:<br>怪獸:不能進入、村民:免費進入、外來者:需支付費用。</p>
+                    <p>用 if 判斷是否允許進入村莊，並且印出:<br>怪獸:不能進入；村民:免費進入；外來者:需支付費用。</p>
                 </div>
                 <div id="idcard">
-                    <img class="img" id="idcard" src="/images/idcard/villageridcard.svg" alt="">
+                    <img class="img" id="seal" src="/images/idcard/idcardseal.svg" alt="">
+                    <button onclick="openBox()">打開寶箱</button>
+                    <button id="test-button">測試蓋章動畫</button>
+                    <img class="img" id="idcards" src="/images/idcard/villageridcard.svg" alt="">
                 </div>
             </div>
             <div class="col-md-6 right-container">
@@ -271,6 +296,55 @@ public class StarPatterns {
         function autoResize(input) {
             input.style.width = input.scrollWidth + 'px'; // 方框隨著輸入的文字增加變大
         }
+
+        // DOMContentLoaded事件在文件的HTML被完全載入和解析後觸發(不必等待樣式表、圖像和子框架的完成加載)
+        document.addEventListener('DOMContentLoaded', function(){
+            const img = [
+                '/images/idcard/monsteridcard.svg',
+                '/images/idcard/outsideridcard.svg',
+                '/images/idcard/villageridcard.svg'
+            ];
+
+            function getRandom() {
+                const randomIndex = Math.floor(Math.random() * img.length);
+                // 返回數字，不是返回函數，返回函數的寫法 => img[randomIndex]();
+                return img[randomIndex];
+            }
+
+            function change() {
+                const imgElement = document.getElementById('idcards');
+                imgElement.src = getRandom();
+            }
+
+            // 變換身分證
+            change();
+
+            // 綁定測試按鈕
+            function show() {
+                const box = document.getElementById("test-button");
+                alert('Button clicked!');
+                box.classList.add("show");
+            }
+
+            document.getElementById('test-button').addEventListener('click', function() {
+                alert('Button clicked!');
+            });
+
+        });
+
+        // 蓋章動畫
+        function playStamp() {
+            const sealElement = document.getElementById('seal');
+
+            // 開始動畫
+            sealElement.classList.add('show');
+
+            // 完成動畫，移除顯示
+            setTimeout(() => {
+                sealElement.classList.remove('show');
+            }, 2000); // 預設動畫持續2秒
+        }
+
     </script>
 </body>
 
