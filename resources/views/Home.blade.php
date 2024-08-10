@@ -20,6 +20,7 @@
     <div class="user-tom" style="border: 2px solid black; padding: 20px">
         <h2>Yan</h2>
         <button><a href="{{ route('boxgame') }}">寶箱</a></button>
+        <button><a href="{{ route('idcardgame') }}">魔法門衛</a></button>
     </div>
 
 </body>
