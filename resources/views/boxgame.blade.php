@@ -286,19 +286,20 @@
                     <textarea id="code-editor">
 public class StarPatterns {
     public static void main(String[] args) {
-        int n = 3;
+        int i,j;
         // 程式撰寫區域
 
         // 控制層數
-        for(){
+        for( ; ; ){
             // 控制縮排(使星星在正確位置)
-            for(){
-                
+            for( ; ; ){
+                System.out.print(" ");
             }
             // 印出相應數量的星星
-            for(){
-                
+            for( ; ; ){
+                System.out.print("*");
             }
+            System.out.println();
         }
     }
 }</textarea>
