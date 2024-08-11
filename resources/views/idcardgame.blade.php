@@ -179,19 +179,36 @@
 
         #seal{
             top: -100px; /* 蓋章動畫起始位置在畫面上方 */
-            left: 50%; /* 調整左右位置 */
-            transform: translateX(-50%);
             opacity: 0;
-            /* 從-100px => 50px，透明(0) => 不透明(1)，動畫持續0.5秒，速度曲線 => ease-in-out */
+            /* top從-100px => 50px，opacity透明(0) => 不透明(1)，動畫持續0.5秒，速度曲線 => ease-in-out */
             transition: top 0.5s ease-in-out, opacity 0.5s ease-in-out;
             width: 100%;
             height: 250px;
             position: absolute;
-            z-index: 1; /*最上層*/
+            z-index: 10; /*最上層*/
         }
 
         #seal.show{
             top: 50px; /* 蓋章飛入後的位置 */
+            opacity: 1;
+        }
+
+        #message{
+            top: 40%;
+            left: 30%;
+            opacity: 0;
+            position: absolute;
+            padding: 20px;
+            background-color: white;
+            border: 3px solid green;
+            border-radius: 10px;
+            font-size: 72px;
+            font-weight: bold;
+            z-index: 8;
+            transform: rotate(-10deg);
+        }
+
+        #message.open{
             opacity: 1;
         }
         
@@ -264,6 +281,7 @@
                 </div>
                 <div id="idcard">
                     <img class="img" id="seal" src="/images/idcard/idcardseal.svg" alt="">
+                    <div id="message"></div>
                     <img class="img" id="idcards" src="/images/idcard/villageridcard.svg" alt="">
                 </div>
                 <button onclick="playStamp()">測試蓋章動畫</button>
@@ -294,20 +312,24 @@ public class StarPatterns {
     
     <!-- JavaScript -->
     <script>
-        function testFunction() {
-        alert("按钮点击正常！");
-    }
         function autoResize(input) {
             input.style.width = input.scrollWidth + 'px'; // 方框隨著輸入的文字增加變大
         }
 
         // DOMContentLoaded事件在文件的HTML被完全載入和解析後觸發(不必等待樣式表、圖像和子框架的完成加載)
         document.addEventListener('DOMContentLoaded', function(){
+            // 隨機更換身分證
             const img = [
                 '/images/idcard/monsteridcard.svg',
                 '/images/idcard/outsideridcard.svg',
                 '/images/idcard/villageridcard.svg'
             ];
+
+            const messages = {
+                '/images/idcard/monsteridcard.svg': { text: '不能進入', color: 'red' , border: '3px solid red'},
+                '/images/idcard/outsideridcard.svg': { text: '支付費用', color: 'orange' , border: '3px solid orange'},
+                '/images/idcard/villageridcard.svg': { text: '免費進入', color: 'green' , border: '3px solid green'}
+            };
 
             function getRandom() {
                 const randomIndex = Math.floor(Math.random() * img.length);
@@ -317,7 +339,16 @@ public class StarPatterns {
 
             function change() {
                 const imgElement = document.getElementById('idcards');
-                imgElement.src = getRandom();
+                const messageElement = document.getElementById('message');
+                const selectedImg = getRandom();
+
+                imgElement.src = selectedImg;
+
+                // 身分證對應文字
+                const messageData = messages[selectedImg];
+                messageElement.textContent = messageData.text;
+                messageElement.style.color = messageData.color;
+                messageElement.style.border = messageData.border;
             }
 
             // 變換身分證
@@ -328,14 +359,18 @@ public class StarPatterns {
         // 蓋章動畫
         function playStamp() {
             const sealElement = document.getElementById('seal');
+            const messageElement = document.getElementById('message');
 
             // 開始動畫
             sealElement.classList.add('show');
 
             // 完成動畫，移除顯示
             setTimeout(() => {
+
+                messageElement.classList.add('open');
                 sealElement.classList.remove('show');
-            }, 1000); // 預設動畫持續1秒
+                
+            }, 500); // 預設動畫持續1秒
         }
 
     </script>
