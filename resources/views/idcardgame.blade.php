@@ -277,7 +277,7 @@
         <div class="row">
             <div class="col-md-6 left-container">
                 <div class="question">
-                    <p>用 if 判斷是否允許進入村莊，並且印出:<br>怪獸:禁止進入；村民:免費進入；外來者:支付費用。</p>
+                    <p>用 if...else 判斷是否允許進入村莊，並且印出:<br>怪獸:禁止進入；其他:免費進入。</p>
                 </div>
                 <div id="idcard">
                     <img class="img" id="seal" src="/images/idcard/idcardseal.svg" alt="">
@@ -292,18 +292,14 @@
 public class StarPatterns {
     public static void main(String[] args) {
 
-        String x = "<input type="text" id="xInit" placeholder="____" oninput="autoResize(this)">"; // 身分
+        String x = "怪獸"; // 身分
 
 
         if (x == "<input type="text" id="vInit" placeholder="____" oninput="autoResize(this)">") {
             System.out.print("<input type="text" id="fInit" placeholder="____" oninput="autoResize(this)">");
         }
 
-        if (x == "<input type="text" id="oInit" placeholder="____" oninput="autoResize(this)">") {
-            System.out.print("<input type="text" id="pInit" placeholder="____" oninput="autoResize(this)">");
-        }
-
-        if (x == "<input type="text" id="mInit" placeholder="____" oninput="autoResize(this)">") {
+        else {
             System.out.print("<input type="text" id="nInit" placeholder="____" oninput="autoResize(this)">");
         }
 
