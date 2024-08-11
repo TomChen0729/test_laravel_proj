@@ -277,11 +277,11 @@
         <div class="row">
             <div class="col-md-6 left-container">
                 <div class="question">
-                    <p>用 if 判斷是否允許進入村莊，並且印出:<br>怪獸:不能進入；村民:免費進入；外來者:需支付費用。</p>
+                    <p>用 if 判斷是否允許進入村莊，並且印出:<br>怪獸:禁止進入；村民:免費進入；外來者:支付費用。</p>
                 </div>
                 <div id="idcard">
                     <img class="img" id="seal" src="/images/idcard/idcardseal.svg" alt="">
-                    <div id="message"></div>
+                    <div id="message"></div> <!-- 動畫顯示文字 -->
                     <img class="img" id="idcards" src="/images/idcard/villageridcard.svg" alt="">
                 </div>
                 <button onclick="playStamp()">測試蓋章動畫</button>
@@ -291,14 +291,22 @@
 <pre>
 public class StarPatterns {
     public static void main(String[] args) {
-        int n = 3; // 階層
 
-        for (<input type="text" id="iInit" placeholder="____" oninput="autoResize(this)">;<input type="text" id="iScope" placeholder="____" oninput="autoResize(this)">;<input type="text" id="iUpdate" placeholder="____" oninput="autoResize(this)">) {
-            for (<input type="text" id="jInit" placeholder="____" oninput="autoResize(this)">;<input type="text" id="jScope" placeholder="____" oninput="autoResize(this)">;<input type="text" id="jUpdate" placeholder="____" oninput="autoResize(this)">) {
-                System.out.print("*");
-            }
-            System.out.println();
+        String x = "<input type="text" id="xInit" placeholder="____" oninput="autoResize(this)">"; // 身分
+
+
+        if (x == "<input type="text" id="vInit" placeholder="____" oninput="autoResize(this)">") {
+            System.out.print("<input type="text" id="fInit" placeholder="____" oninput="autoResize(this)">");
         }
+
+        if (x == "<input type="text" id="oInit" placeholder="____" oninput="autoResize(this)">") {
+            System.out.print("<input type="text" id="pInit" placeholder="____" oninput="autoResize(this)">");
+        }
+
+        if (x == "<input type="text" id="mInit" placeholder="____" oninput="autoResize(this)">") {
+            System.out.print("<input type="text" id="nInit" placeholder="____" oninput="autoResize(this)">");
+        }
+
     }
 }
 </pre>
@@ -325,26 +333,27 @@ public class StarPatterns {
                 '/images/idcard/villageridcard.svg'
             ];
 
+            // 依據隨機身分證顯示文字
             const messages = {
-                '/images/idcard/monsteridcard.svg': { text: '不能進入', color: 'red' , border: '3px solid red'},
+                '/images/idcard/monsteridcard.svg': { text: '禁止進入', color: 'red' , border: '3px solid red'},
                 '/images/idcard/outsideridcard.svg': { text: '支付費用', color: 'orange' , border: '3px solid orange'},
                 '/images/idcard/villageridcard.svg': { text: '免費進入', color: 'green' , border: '3px solid green'}
             };
 
             function getRandom() {
                 const randomIndex = Math.floor(Math.random() * img.length);
-                // 返回數字，不是返回函數，返回函數的寫法 => img[randomIndex]();
+                // [randomIndex]返回數字，不是返回函數，返回函數的寫法 => img[randomIndex]();
                 return img[randomIndex];
             }
 
             function change() {
                 const imgElement = document.getElementById('idcards');
                 const messageElement = document.getElementById('message');
+                // 隨機身分證 => [0][1][2]
                 const selectedImg = getRandom();
-
+                // 更改身分證圖片
                 imgElement.src = selectedImg;
-
-                // 身分證對應文字
+                // 用身分證圖片顯示對應文字顏色邊框
                 const messageData = messages[selectedImg];
                 messageElement.textContent = messageData.text;
                 messageElement.style.color = messageData.color;
