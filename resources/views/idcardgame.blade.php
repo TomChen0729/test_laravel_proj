@@ -373,7 +373,7 @@ public class StarPatterns {
             // 開始動畫
             sealElement.classList.add('show');
 
-            // 完成動畫，移除顯示
+            // 完成動畫，新增文字，移除印章
             setTimeout(() => {
 
                 messageElement.classList.add('open');
